@@ -43,41 +43,6 @@ CHIP ALU {
 
     PARTS:
    // Put you code here:
-   /*
-   Xor(a=zx, b=zx, out=zxtmp);
-   And16(a=x, b[0]=zxtmp, b[1]=zxtmp, b[2]=zxtmp,
-         b[3]=zxtmp, b[4]=zxtmp, b[5]=zxtmp,
-         b[6]=zxtmp, b[7]=zxtmp, b[8]=zxtmp,
-         b[9]=zxtmp, b[10]=zxtmp, b[11]=zxtmp,
-         b[12]=zxtmp, b[13]=zxtmp, b[14]=zxtmp,
-         b[15]=zxtmp, out=zxr);
-
-   Not16(in=zxr, out=nxtmp0);
-   And16(a=nx, b=nxtmp0, out=nxtmp3)
-
-   And16(a=nx,
-         b[0]=nxtmp0,
-         b[1]=nxtmp0,
-         b[2]=nxtmp0,
-         b[3]=nxtmp0,
-         b[4]=nxtmp0,
-         b[5]=nxtmp0,
-         b[6]=nxtmp0,
-         b[7]=nxtmp0,
-         b[8]=nxtmp0,
-         b[9]=nxtmp0,
-         b[10]=nxtmp0,
-         b[11]=nxtmp0,
-         b[12]=nxtmp0,
-         b[13]=nxtmp0,
-         b[14]=nxtmp0,
-         b[15]=nxtmp0,
-         out=nxtmp1);
-
-   Xor(a[0]=nx, b=nx, out=nxtmp2);   
-   And16(a=zxr, b[0..15]=nxtmp2, out=nxtmp3);
-   Or16(a=nxtmp1, b=nxtmp3, out=nxr);
-*/
     Mux16(a=x, b=false, sel=zx, out=zxr);
 
     Not16(in=zxr, out=nxr0);
@@ -93,26 +58,13 @@ CHIP ALU {
     Mux16(a=f0, b=f1, sel=f, out=fr);
 
     Not16(in=fr, out=no1);
-    Mux16(a=fr, b=no1, sel=no, out=aa);
-/*
-    Or8Way(in[0]=tmpout[0],
-           in[1]=tmpout[1],
-           in[2]=tmpout[2],
-           in[3]=tmpout[3],
-           in[4]=tmpout[4],
-           in[5]=tmpout[5],
-           in[6]=tmpout[6],
-           in[7]=tmpout[7],
-           out=zr1);
-    Or8Way(in=aa[8..15], out=zr2);
-    Or(a=zr1, b=zr2, out=zr);
-*/
-    Or16Way(in=aa, out=zr2);
+    Mux16(a=fr, b=no1, sel=no, out=final);
+
+    Or16Way(in=final, out=zr2);
     Not(in=zr2, out=zr);
 
-    //And(a=aa[0], b=aa[0], out=ng);
-    IsNegative(in=aa, out=ng);
+    IsNegative(in=final, out=ng);
 
-    And16(a=aa, b=aa, out=out);
+    And16(a=final, b=final, out=out);
 
 }
