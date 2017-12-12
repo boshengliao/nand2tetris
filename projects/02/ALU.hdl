@@ -80,11 +80,13 @@ CHIP ALU {
 */
     Mux16(a=x, b=false, sel=zx, out=zxr);
 
-    Mux16(a=false, b=zxr, sel=nx, out=nxr);
+    Not16(in=zxr, out=nxr0);
+    Mux16(a=zxr, b=nxr0, sel=nx, out=nxr);
 
     Mux16(a=y, b=false, sel=zy, out=zyr);
 
-    Mux16(a=false, b=zyr, sel=ny, out=nyr);
+    Not16(in=zyr, out=nyr0);
+    Mux16(a=zyr, b=nyr0, sel=ny, out=nyr);
 
     Add16(a=nxr, b=nyr, out=f1);
     And16(a=nxr, b=nyr, out=f0);

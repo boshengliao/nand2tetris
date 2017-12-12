@@ -14,5 +14,5 @@ CHIP IsNegative {
 
     PARTS:
     // Put your code here:
-    And(a=in[0], b=in[0], out=out);
+    And(a=in[15], b=in[15], out=out);
 }
