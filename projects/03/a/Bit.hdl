@@ -16,27 +16,15 @@ CHIP Bit {
     PARTS:
     // Put your code here:
 
-/* 13
-    DFF(in=in, out=out1);
-    Mux(a=out1, b=in, sel=load, out=out2);
-    DFF(in=out2, out=out);
-*/
+    //Not(in=in, out=out);
+    //DFF(in=out, out=out1);
 
-/* 9 
-    DFF(in=in, out=out1);
-    Mux(a=out1, b=in, sel=load, out=out2);
-    DFF(in=out2, out=out3);
-*/
+    Mux(a=out2, b=in, sel=load, out=out1);
+    DFF(in=out1, out=out2);
+    Mux(a=out1, b=out2, sel=load, out=out);
 
-
-    DFF(in=in, out=out1);
-    Mux(a=out1, b=in, sel=load, out=out2);
-    DFF(in=out2, out=out3);
-    DFF(in=out3, out=out);
-
-
-/*
-    Mux(a=in, b=out, sel=load, out=out2);
-    DFF(in=in, out=out1);
+/* 程序从 out 开始, Not求值后结束
+    Not(in=in, out=out1);
+    DFF(in=out1, out=out);
 */
 }
