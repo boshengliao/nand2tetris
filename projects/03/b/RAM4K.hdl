@@ -16,4 +16,42 @@ CHIP RAM4K {
 
     PARTS:
     // Put your code here:
+    DMux8Way(in=true, sel=address[0..2],
+             a=a1, b=b1, c=c1, d=d1,
+             e=e1, f=f1, g=g1, h=h1);
+
+    And(a=load, b=a1, out=la1);
+    And(a=load, b=b1, out=lb1);
+    And(a=load, b=c1, out=lc1);
+    And(a=load, b=d1, out=ld1);
+    And(a=load, b=e1, out=le1);
+    And(a=load, b=f1, out=lf1);
+    And(a=load, b=g1, out=lg1);
+    And(a=load, b=h1, out=lh1);
+    
+    RAM512(in=in, load=la1, address=address[3..11], out=outa);
+    RAM512(in=in, load=lb1, address=address[3..11], out=outb);
+    RAM512(in=in, load=lc1, address=address[3..11], out=outc);
+    RAM512(in=in, load=ld1, address=address[3..11], out=outd);
+    RAM512(in=in, load=le1, address=address[3..11], out=oute);
+    RAM512(in=in, load=lf1, address=address[3..11], out=outf);
+    RAM512(in=in, load=lg1, address=address[3..11], out=outg);
+    RAM512(in=in, load=lh1, address=address[3..11], out=outh);
+
+    Mux16(a=false, b=outa, sel=a1, out=anda);
+    Mux16(a=false, b=outb, sel=b1, out=andb);
+    Mux16(a=false, b=outc, sel=c1, out=andc);
+    Mux16(a=false, b=outd, sel=d1, out=andd);
+    Mux16(a=false, b=oute, sel=e1, out=ande);
+    Mux16(a=false, b=outf, sel=f1, out=andf);
+    Mux16(a=false, b=outg, sel=g1, out=andg);
+    Mux16(a=false, b=outh, sel=h1, out=andh);
+
+    Or16(a=anda, b=andb, out=or1);
+    Or16(a=or1, b=andc, out=or2);
+    Or16(a=or2, b=andd, out=or3);
+    Or16(a=or3, b=ande, out=or4);
+    Or16(a=or4, b=andf, out=or5);
+    Or16(a=or5, b=andg, out=or6);
+    Or16(a=or6, b=andh, out=out);
 }
