@@ -18,18 +18,18 @@ CHIP PC {
     PARTS:
     // Put your code here:
 
-    Mux16(a=in, b=false, sel=reset, out=out1);
+    Mux16(a=out4, b=in, sel=load, out=out1);
 
-    Mux16(a=out1, b=in, sel=load, out=out2);
-
-    Inc16(in=out2, out=in2);
+    Inc16(in=out1, out=in2);
     Not(in=load, out=inc1);
     And(a=inc1, b=inc, out=inc3);
-    Mux16(a=out2, b=in2, sel=inc3, out=out3);
+    Mux16(a=out1, b=in2, sel=inc3, out=out2);
+
+    Mux16(a=out2, b=false, sel=reset, out=out3);
 
     Or(a=reset, b=load, out=load1);
     Or(a=load1, b=inc, out=load2);
-    Register(in=out3, load=load2, out=out4);
+    Register(in=out3, load=load2, out=out4, out=out);
 
 
 /*
