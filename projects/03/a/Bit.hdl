@@ -16,9 +16,14 @@ CHIP Bit {
     PARTS:
     // Put your code here:
 
+    Mux(a=dffOut, b=in, sel=load, out=muxOut);
+    DFF(in=muxOut, out=dffOut, out=out);
+
+/* 自己写的老方法, 也弄成功运行, 但是它卡住了 PC.hdl
     Mux(a=out2, b=in, sel=load, out=out1);
     DFF(in=out1, out=out2);
     Mux(a=out1, b=out2, sel=load, out=out);
+    */
 
 /* 程序从 out 开始, Not求值后结束
     Not(in=in, out=out1);
