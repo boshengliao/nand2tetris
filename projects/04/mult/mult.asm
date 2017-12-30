@@ -7,3 +7,44 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
 // Put your code here.
+
+@sum
+M=0
+
+@R0
+D=M
+@END
+D;JLE
+
+@R1
+D=M
+@END
+D;JLE
+
+@i
+M=0
+(LOOP)
+@i
+D=M
+@R1
+D=D-M
+@END
+D;JGE
+
+@sum
+D=M
+@R0
+D=D+M
+@sum
+M=D
+@i
+M=M+1
+@LOOP
+0;JMP
+
+(END)
+@sum
+D=M
+@R2
+M=D
+
