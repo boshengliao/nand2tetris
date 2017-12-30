@@ -13,13 +13,57 @@
 
 // Put your code here.
 
-(LOOP)
-
 @KBD
-D=M
+D=A
+@E
+M=D
 
 @16384
+D=A
+@S
 M=D
+
+(LOOP)
+@KBD
+D=M
+@UNFILL
+D; JEQ
+
+(FILL)
+@E
+D=M
+@S
+D=D-M
+@LOOP
+D;JEQ
+
+D=1
+@S
+A=M
+M=-1
+
+D=1
+@S
+M=D+M
+@LOOP
+0;JMP
+
+(UNFILL)
+@SCREEN
+D=A
+@S
+D=D-M
+@LOOP
+D;JGT
+
+D=0
+@S
+A=M
+M=D
+
+D=1
+@S
+M=M-D
 
 @LOOP
 0;JMP
